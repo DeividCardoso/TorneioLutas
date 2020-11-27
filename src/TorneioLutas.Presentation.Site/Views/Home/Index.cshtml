@@ -1,0 +1,16 @@
+﻿@model List<TorneioLutas.Presentation.Site.Models.LutadorViewModel>
+
+@{
+    ViewData["Title"] = "Torneio de Lutas";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Torneio de Lutas</h1>
+    <p>Escolha 16 Lutasdores para começar a luta!</p>
+    <hr />
+
+    @foreach (var item in Model)
+    {
+       <p>@item.Nome</p>
+    }
+</div>
