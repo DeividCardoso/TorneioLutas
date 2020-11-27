@@ -17,27 +17,28 @@ namespace TorneioLutas.Presentation.Site.Controllers
         private readonly IMapper mapper;
 
         private readonly ILogger<HomeController> _logger;
-        private readonly ITorneioService _lutadoresService;
+        private readonly ITorneioService _torneioService;
 
-        public HomeController(ILogger<HomeController> logger, ITorneioService lutadoresService)
+        public HomeController(ILogger<HomeController> logger, ITorneioService torneioService)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<Lutador, LutadorViewModel>().ReverseMap());
             mapper = config.CreateMapper();
 
             _logger = logger;
-            _lutadoresService = lutadoresService;
+            _torneioService = torneioService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var lutadores = await _lutadoresService.GetAllLutadores();
+            var lutadores = await _torneioService.GetAllLutadores();
             var lutadoresVM = mapper.Map<List<LutadorViewModel>>(lutadores);
 
             return View(lutadoresVM);
         }
 
-        public IActionResult IniciarTorneio()
+        public IActionResult IniciarTorneio(List<Lutador> lutadores)
         {
+            _torneioService.GetTorneio(lutadores);
             return View();
         }
 

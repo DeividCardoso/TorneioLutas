@@ -8,6 +8,6 @@ namespace TorneioLutas.Service
     {
         Task<List<Lutador>> GetAllLutadores();
 
-        Task<Torneio> GetTorneio();
+        Task<Torneio> GetTorneio(List<Lutador> lutadores);
     }
 }

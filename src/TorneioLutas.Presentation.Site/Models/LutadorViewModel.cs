@@ -24,6 +24,8 @@ namespace TorneioLutas.Presentation.Site.Models
 
             [Display(Name ="Vitórias")]
             public int Vitorias { get; set; }
+
+            public bool IsSelected { get; set; }
         
     }
 }

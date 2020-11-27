@@ -5,12 +5,18 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Torneio de Lutas</h1>
+    <h1 class="display-4">Torneio de Lutas </h1>
     <p>Escolha 16 Lutasdores para começar a luta!</p>
     <hr />
+    <form action="IniciarTorneio" method="post">
 
-    @foreach (var item in Model)
-    {
-       <p>@item.Nome</p>
-    }
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <input type="hidden" asp-for="@Model[i].Id" />
+
+
+
+
+        }   
+    </form>
 </div>

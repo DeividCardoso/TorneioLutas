@@ -13,7 +13,8 @@
             Oitavas = new Luta[8];
             Quartas = new Luta[4];
             Semi = new Luta[2];
-            Final = new Luta();
         }
+
+
     }
 }
