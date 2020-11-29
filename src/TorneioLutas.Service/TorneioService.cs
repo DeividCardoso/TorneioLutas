@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TorneioLutas.Service.Helpers;
@@ -8,21 +9,35 @@ namespace TorneioLutas.Service
 {
     public class TorneioService : ITorneioService
     {
-        public async Task<List<Lutador>> GetAllLutadores()
+        private readonly string apiUrl;
+ 
+        public TorneioService(IConfiguration configuration)
         {
-            return await HttpHelper.GetAsync<List<Lutador>>("http://localhost:3000/lutadores");
+            apiUrl = configuration.GetSection("lutadoresAPI:url").Value;
         }
 
-        public Task<Torneio> GetTorneio(List<Lutador> lutadores)
+
+        public async Task<List<Lutador>> GetAllLutadores()
         {
-            if (lutadores.Count != 16)
-                throw new System.Exception("diferente de 16");
+            return await HttpHelper.GetAsync<List<Lutador>>(apiUrl);
+        }
+
+        public Torneio GetTorneio(List<Lutador> lutadores)
+        {
+            Torneio torneio = new Torneio();
+            torneio.ListaLutadores = lutadores;
+
+            if (torneio.ListaLutadores.Count != 16) { 
+                torneio.Validation.Sucess = false;
+                torneio.Validation.ErrorMessage = $"Torneio deve iniciar com 16 lutadores, você selecionou {torneio.ListaLutadores.Count()}";
+                return torneio;
+            }
 
             lutadores = lutadores.OrderBy(l => l.Idade).ToList();
 
-            Torneio torneio = new Torneio();
+            
 
-            for (int i = 0; i < lutadores.Count; i+=2)
+            for (int i = 0; i < lutadores.Count; i += 2)
             {
                 torneio.Oitavas[(i / 2)] = new Luta(lutadores[i], lutadores[i+1]);
             }
@@ -39,7 +54,10 @@ namespace TorneioLutas.Service
 
             torneio.Final = new Luta(torneio.Semi[0].GetVencedor(), torneio.Semi[1].GetVencedor());
 
-            throw new System.NotImplementedException();
+            torneio.Vencedor = torneio.Final.GetVencedor();
+
+            torneio.Validation.Sucess = true;
+            return torneio;
         }
     }
 }

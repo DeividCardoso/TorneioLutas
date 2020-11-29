@@ -16,7 +16,7 @@ namespace TorneioLutas.Service.Models
         public List<string> ArtesMarciais { get; set; }
 
 
-        public int TotalLutas { get; set; }
+        public int Lutas { get; set; }
 
         public int Derrotas { get; set; }
 

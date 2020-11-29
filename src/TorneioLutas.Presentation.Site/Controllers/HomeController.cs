@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using TorneioLutas.Presentation.Site.Models;
 using TorneioLutas.Service;
@@ -36,10 +34,27 @@ namespace TorneioLutas.Presentation.Site.Controllers
             return View(lutadoresVM);
         }
 
-        public IActionResult IniciarTorneio(List<Lutador> lutadores)
+        [HttpPost]
+        public IActionResult IniciarTorneio(List<LutadorViewModel> lutadoresVM)
         {
-            _torneioService.GetTorneio(lutadores);
-            return View();
+            var lutadores = new List<Lutador>();
+
+            foreach (var lutadorVM in lutadoresVM)
+            {
+                if (lutadorVM.IsSelected)
+                {
+                    lutadores.Add(mapper.Map<Lutador>(lutadorVM));
+                }
+            }
+
+            Torneio torneio = _torneioService.GetTorneio(lutadores);
+            if (!torneio.Validation.Sucess)
+            {
+                ModelState.AddModelError("", torneio.Validation.ErrorMessage);
+                return View("Index", lutadoresVM);
+            }                                
+
+            return View("Resultado", torneio);
         }
 
 

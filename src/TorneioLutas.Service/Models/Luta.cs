@@ -39,14 +39,14 @@ namespace TorneioLutas.Service.Models
 
         private Lutador DesempatarNumeroLutas(Lutador lutador1, Lutador lutador2)
         {
-            if (lutador2.TotalLutas > lutador1.TotalLutas) 
+            if (lutador2.Lutas > lutador1.Lutas) 
                 return Lutador2;
             return Lutador1;
         }
 
-        private static int PercentualVitoria(Lutador lutador)
+        private int PercentualVitoria(Lutador lutador)
         {
-            return (int)(lutador.Vitorias / lutador.TotalLutas) * 100;
+            return (lutador.Vitorias * 100) / lutador.Lutas;
         }
 
     }

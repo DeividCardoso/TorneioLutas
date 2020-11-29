@@ -4,19 +4,68 @@
     ViewData["Title"] = "Torneio de Lutas";
 }
 
+@if (!ViewContext.ViewData.ModelState.IsValid)
+{
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>@ViewContext.ViewData.ModelState.Values.SelectMany(x => x.Errors).FirstOrDefault().ErrorMessage</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+}
+
 <div class="text-center">
     <h1 class="display-4">Torneio de Lutas </h1>
     <p>Escolha 16 Lutasdores para começar a luta!</p>
     <hr />
-    <form action="IniciarTorneio" method="post">
-
-        @for (int i = 0; i < Model.Count; i++)
-        {
-            <input type="hidden" asp-for="@Model[i].Id" />
-
-
-
-
-        }   
-    </form>
 </div>
+
+<form asp-controller="Home" asp-action="IniciarTorneio" method="post">
+    <button type="submit" class="btn btn-primary">Iniciar</button>
+    <div class="card-group">
+        <div class="row">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="col-sm-3">
+                    <div class="card-deck mb-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <input type="hidden" asp-for="@Model[i].Id" />
+                                        <input type="checkbox" asp-for="@Model[i].IsSelected" />
+                                    </div>
+                                    <div class="col-10">
+                                        <h5 class="card-title">
+                                            <input type="hidden" asp-for="@Model[i].Nome" />
+                                            @Model[i].Nome
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-0">Idade: @Model[i].Idade <input type="hidden" asp-for="@Model[i].Idade" /></p>
+                                <p class="mb-0">Lutas: @Model[i].Lutas <input type="hidden" asp-for="@Model[i].Lutas" /></p>
+                                <p class="mb-0">Vitorias: @Model[i].Vitorias  <input type="hidden" asp-for="@Model[i].Vitorias" /></p>
+                                <p class="mb-0">Derrotas: @Model[i].Derrotas <input type="hidden" asp-for="@Model[i].Derrotas" /></p>
+                                <p class="mb-0">Artes Marciais: @Model[i].ArtesMarciais.Count</p>
+                                <span>
+                                    <small>
+                                        <ul>
+                                            @for (int j = 0; j < Model[i].ArtesMarciais.Count; j++)
+                                            {
+                                                <li>@Model[i].ArtesMarciais[j]</li>
+                                                <input type="hidden" asp-for="@Model[i].ArtesMarciais[j]" />
+                                            }
+                                        </ul>
+                                    </small>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</form>
+

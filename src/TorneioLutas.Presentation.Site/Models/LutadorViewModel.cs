@@ -18,7 +18,7 @@ namespace TorneioLutas.Presentation.Site.Models
             public List<string> ArtesMarciais { get; set; }
 
             [Display(Name ="Total de Lutas")]
-            public int TotalLutas { get; set; }
+            public int Lutas { get; set; }
 
             public int Derrotas { get; set; }
 
