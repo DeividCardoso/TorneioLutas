@@ -14,6 +14,13 @@ body {
     margin: 0;
 }
 
+.counter {
+    position: fixed;
+    top: 5px;
+    left: 10px;
+    z-index: 1;
+}
+
 .btn-start {
     position: fixed;
     top: 5px;

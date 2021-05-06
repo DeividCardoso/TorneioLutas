@@ -6,13 +6,17 @@
 
 @if (!ViewContext.ViewData.ModelState.IsValid)
 {
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>@ViewContext.ViewData.ModelState.Values.SelectMany(x => x.Errors).FirstOrDefault().ErrorMessage</strong>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>@ViewContext.ViewData.ModelState.Values.SelectMany(x => x.Errors).FirstOrDefault().ErrorMessage</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 }
+
+<div id="countSelected" class="counter">
+    
+</div>
 
 <div class="text-center">
     <h1 class="display-4">Torneio de Lutas </h1>
@@ -33,7 +37,7 @@
                                 <div class="row">
                                     <div class="col-2">
                                         <input type="hidden" asp-for="@Model[i].Id" />
-                                        <input class="custom-checkbox" type="checkbox" asp-for="@Model[i].IsSelected" />
+                                        <input id="checkBoxSelectFighter" onchange="atualizaContador()" class="custom-checkbox" type="checkbox" asp-for="@Model[i].IsSelected" />
                                     </div>
                                     <div class="col-10">
                                         <h5 class="card-title">
@@ -68,4 +72,20 @@
         </div>
     </div>
 </form>
+
+@section Scripts {
+    <script type="text/javascript">
+        var countSelected = 0;
+
+        $(document).ready(function () {
+            atualizaContador();
+        });
+
+        function atualizaContador() {
+            var checkboxSelecteds = $('input:checkbox[id^=checkBoxSelectFighter]:checked');
+            $("#countSelected").text(checkboxSelecteds.length)
+        }
+
+    </script>
+}
 

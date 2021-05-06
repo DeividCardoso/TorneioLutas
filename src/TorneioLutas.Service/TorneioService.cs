@@ -19,7 +19,8 @@ namespace TorneioLutas.Service
 
         public async Task<List<Lutador>> GetAllLutadores()
         {
-            return await HttpHelper.GetAsync<List<Lutador>>(apiUrl);
+            var lutadores = await HttpHelper.GetAsync<List<Lutador>>(apiUrl);
+            return lutadores;
         }
 
         public Torneio GetTorneio(List<Lutador> lutadores)
