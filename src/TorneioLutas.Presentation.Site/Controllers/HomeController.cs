@@ -54,7 +54,7 @@ namespace TorneioLutas.Presentation.Site.Controllers
                 return View("Index", lutadoresVM);
             }                                
 
-            return View("Resultado", torneio);
+            return View("Award", torneio);
         }
 
 

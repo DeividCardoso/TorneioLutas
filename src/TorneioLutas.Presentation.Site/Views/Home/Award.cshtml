@@ -1,0 +1,32 @@
+﻿@model TorneioLutas.Service.Models.Torneio
+
+@{
+    ViewData["Title"] = "Premiação";
+}
+
+<h1 class="text-center">@ViewData["title"]</h1>
+
+<a class="btn btn-primary btn-start" href='@Url.Action("Index", "Home")'>
+    <i class="bi bi-backspace-fill"></i>
+    Novo Torneio
+</a>
+
+<div class="container">
+    <div class="row awards">
+        <div class="col-lg-4 champion">
+            <i class="bi bi-award-fill"></i>
+            <p>Campeão</p>
+            <p>@Model.Vencedor.Nome</p>
+        </div>
+        <div class="col-lg-4 viceChampion">
+            <i class="bi bi-award-fill"></i>
+            <p>Vice-campeão</p>
+            <p>@Model.Vencedor.Nome</p>
+        </div>
+        <div class="col-lg-4 thirdPlace">
+            <i class="bi bi-award-fill"></i>
+            <p>Terceiro colocado</p>
+            <p>@Model.Vencedor.Nome</p>
+        </div>
+    </div>
+</div>

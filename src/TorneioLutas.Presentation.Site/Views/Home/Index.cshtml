@@ -14,8 +14,13 @@
     </div>
 }
 
-<div id="countSelected" class="counter">
-    
+<div class="selectedFighters">
+    <p>Você selecionou</p>
+    <div id="countSelected" class="counter">
+    </div>
+    <button onclick="clearSelecteds()" class="trash" data-toggle="tooltip" title="Limpar Seleção!" data-placement="bottom">
+        <i class="bi bi-trash"></i>
+    </button>
 </div>
 
 <div class="text-center">
@@ -25,7 +30,9 @@
 </div>
 
 <form asp-controller="Home" asp-action="IniciarTorneio" method="post">
-    <button type="submit" class="btn btn-primary btn-start">Iniciar Torneio</button>
+    <button type="submit" class="btn btn-primary btn-start">Iniciar Torneio
+        <i class="bi bi-play-circle-fill"></i>
+    </button>
     <div class="card-group">
         <div class="row">
             @for (int i = 0; i < Model.Count; i++)
@@ -79,11 +86,21 @@
 
         $(document).ready(function () {
             atualizaContador();
+            $('[data-toggle="tooltip"]').tooltip({ trigger: "hover" });
         });
 
         function atualizaContador() {
             var checkboxSelecteds = $('input:checkbox[id^=checkBoxSelectFighter]:checked');
-            $("#countSelected").text(checkboxSelecteds.length)
+            $('#countSelected').text(checkboxSelecteds.length)
+        }
+
+        function clearSelecteds() {
+            var checkboxSelecteds = $('input:checkbox[id^=checkBoxSelectFighter]:checked');
+            for (var i = 0; i < checkboxSelecteds.length; i++) {
+                checkboxSelecteds[i].checked = false;               
+            }
+            atualizaContador();
+            
         }
 
     </script>
