@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TorneioLutas.Service", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TorneioLutas.Presentation.Site", "src\TorneioLutas.Presentation.Site\TorneioLutas.Presentation.Site.csproj", "{84AFC1A0-6365-4357-9E04-3D2718F9B2D7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Presentation", "1 - Presentation", "{52862826-AF2B-4CB2-A4DE-6994A9499E3A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Service", "2 - Service", "{71AE83D0-739E-49E6-8657-0104D1626BA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +28,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CD154783-C765-4AF5-A09F-494BA406A878} = {71AE83D0-739E-49E6-8657-0104D1626BA0}
+		{84AFC1A0-6365-4357-9E04-3D2718F9B2D7} = {52862826-AF2B-4CB2-A4DE-6994A9499E3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3B078D3F-443E-41CF-968F-22E1C03E7E98}

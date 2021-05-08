@@ -28,7 +28,7 @@ namespace TorneioLutas.Service
             Torneio torneio = new Torneio();
             torneio.ListaLutadores = lutadores;
 
-            if (torneio.ListaLutadores.Count != 16) { 
+            if (torneio.ListaLutadores.Count != 20) { 
                 torneio.Validation.Sucess = false;
                 torneio.Validation.ErrorMessage = $"Torneio deve iniciar com 16 lutadores, você selecionou {torneio.ListaLutadores.Count()}";
                 return torneio;

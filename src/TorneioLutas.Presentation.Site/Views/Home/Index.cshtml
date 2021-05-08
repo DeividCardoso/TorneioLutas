@@ -25,7 +25,7 @@
 
 <div class="text-center">
     <h1 class="display-4">Torneio de Lutas </h1>
-    <p>Escolha 16 Lutasdores para começar a luta!</p>
+    <p>Escolha 20 Lutadores para começar a luta!</p>
     <hr />
 </div>
 
@@ -91,7 +91,15 @@
 
         function atualizaContador() {
             var checkboxSelecteds = $('input:checkbox[id^=checkBoxSelectFighter]:checked');
-            $('#countSelected').text(checkboxSelecteds.length)
+            var counterSelecteds = checkboxSelecteds.length;
+
+            $('#countSelected').text(counterSelecteds)
+            if (counterSelecteds == 20) {
+                $('#countSelected').css("background-color", "forestgreen");
+            }
+            else {
+                $('#countSelected').css("background-color", "indianred");
+            }
         }
 
         function clearSelecteds() {
@@ -99,10 +107,8 @@
             for (var i = 0; i < checkboxSelecteds.length; i++) {
                 checkboxSelecteds[i].checked = false;               
             }
-            atualizaContador();
-            
+            atualizaContador();            
         }
-
     </script>
 }
 
