@@ -11,6 +11,7 @@ namespace TorneioLutas.Service.Helpers
         {
             using (HttpClient client = new HttpClient())
             {
+                client.DefaultRequestHeaders.Add("x-api-key", "e07cb70a-7e83-486b-b88d-7b2b180d7299");
                 var response = await client.GetAsync(url);
 
                 if (response.IsSuccessStatusCode)

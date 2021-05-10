@@ -6,34 +6,49 @@
 
 @if (!ViewContext.ViewData.ModelState.IsValid)
 {
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>@ViewContext.ViewData.ModelState.Values.SelectMany(x => x.Errors).FirstOrDefault().ErrorMessage</strong>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>@ViewContext.ViewData.ModelState.Values.SelectMany(x => x.Errors).FirstOrDefault().ErrorMessage</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<div class="selectedFighters">
+    <p>Você selecionou</p>
+    <div id="countSelected" class="counter">
+    </div>
+    <button onclick="clearSelecteds()" class="trash" data-toggle="tooltip" title="Limpar Seleção!" data-placement="bottom">
+        <i class="bi bi-trash"></i>
+    </button>
+    <button onclick="randomSelect()" class="randomSelect" data-toggle="tooltip" title="Aleatório" data-placement="bottom">
+        <i class="bi bi-shuffle"></i>
     </button>
 </div>
-}
 
 <div class="text-center">
     <h1 class="display-4">Torneio de Lutas </h1>
-    <p>Escolha 16 Lutasdores para começar a luta!</p>
+    <p>Escolha 20 Lutadores para começar a luta!</p>
     <hr />
 </div>
 
 <form asp-controller="Home" asp-action="IniciarTorneio" method="post">
-    <button type="submit" class="btn btn-primary btn-start">Iniciar Torneio</button>
+    <button type="submit" class="btn btn-primary btn-start">
+        Iniciar Torneio
+        <i class="bi bi-play-circle-fill"></i>
+    </button>
     <div class="card-group">
         <div class="row">
             @for (int i = 0; i < Model.Count; i++)
             {
-                <div class="col-sm-3">
+                <div class="col-lg-3">
                     <div class="card-deck mb-2">
                         <div class="card">
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-2">
                                         <input type="hidden" asp-for="@Model[i].Id" />
-                                        <input class="custom-checkbox" type="checkbox" asp-for="@Model[i].IsSelected" />
+                                        <input id="checkBoxSelectFighter" onchange="atualizaContador()" class="custom-checkbox" type="checkbox" asp-for="@Model[i].IsSelected" />
                                     </div>
                                     <div class="col-10">
                                         <h5 class="card-title">
@@ -49,17 +64,17 @@
                                 <p class="mb-0">Vitorias: @Model[i].Vitorias  <input type="hidden" asp-for="@Model[i].Vitorias" /></p>
                                 <p class="mb-0">Derrotas: @Model[i].Derrotas <input type="hidden" asp-for="@Model[i].Derrotas" /></p>
                                 <p class="mb-0">Artes Marciais: @Model[i].ArtesMarciais.Count</p>
-                                <span>
-                                    <small>
-                                        <ul>
-                                            @for (int j = 0; j < Model[i].ArtesMarciais.Count; j++)
-                                            {
-                                                <li>@Model[i].ArtesMarciais[j]</li>
-                                                <input type="hidden" asp-for="@Model[i].ArtesMarciais[j]" />
-                                            }
-                                        </ul>
-                                    </small>
-                                </span>
+                                @*<span>
+                                        <small>
+                                            <ul>
+                                                @for (int j = 0; j < Model[i].ArtesMarciais.Count; j++)
+                                                {
+                                                    <li>@Model[i].ArtesMarciais[j]</li>
+                                                    <input type="hidden" asp-for="@Model[i].ArtesMarciais[j]" />
+                                                }
+                                            </ul>
+                                        </small>
+                                    </span>*@
                             </div>
                         </div>
                     </div>
@@ -68,4 +83,53 @@
         </div>
     </div>
 </form>
+
+@section Scripts {
+    <script type="text/javascript">
+        const numberOfFigthers = 20;
+        var countSelected = 0;
+
+        $(document).ready(function () {
+            atualizaContador();
+            $('[data-toggle="tooltip"]').tooltip({ trigger: "hover" });
+        });
+
+        function atualizaContador() {
+            var checkboxSelecteds = $('input:checkbox[id^=checkBoxSelectFighter]:checked');
+            var counterSelecteds = checkboxSelecteds.length;
+
+            $('#countSelected').text(counterSelecteds)
+            if (counterSelecteds == numberOfFigthers) {
+                $('#countSelected').css("background-color", "forestgreen");
+            }
+            else {
+                $('#countSelected').css("background-color", "indianred");
+            }
+        }
+
+        function clearSelecteds() {
+            var checkboxSelecteds = $('input:checkbox[id^=checkBoxSelectFighter]:checked');
+            for (var i = 0; i < checkboxSelecteds.length; i++) {
+                checkboxSelecteds[i].checked = false;
+            }
+            atualizaContador();
+        }
+
+        function randomSelect() {
+            clearSelecteds();
+            var checkboxs = $('input:checkbox[id^=checkBoxSelectFighter]');
+            var lista = [];
+
+            while (lista.length < numberOfFigthers) {
+                var sorteado = Math.floor(Math.random() * (checkboxs.length));
+                if (!lista.includes(sorteado)) {
+                    checkboxs[sorteado].checked = true;
+                    lista.push(sorteado);
+                }
+            }
+            console.log(lista)
+            atualizaContador();
+        }
+    </script>
+}
 

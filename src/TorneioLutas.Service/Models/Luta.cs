@@ -28,6 +28,12 @@ namespace TorneioLutas.Service.Models
             else return DesempatarNumeroArtesMarciais(Lutador1, Lutador2);
         }               
 
+        public Lutador GetPerdedor()
+        {
+            if (GetVencedor() == Lutador1) return Lutador2;
+            else return Lutador1;
+        }
+
         private Lutador DesempatarNumeroArtesMarciais(Lutador lutador1, Lutador lutador2)
         {
             if (lutador1.ArtesMarciais.Count > lutador2.ArtesMarciais.Count) 

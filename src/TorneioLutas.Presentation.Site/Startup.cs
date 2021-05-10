@@ -18,7 +18,7 @@ namespace TorneioLutas.Presentation.Site
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(); //.AddRazorRuntimeCompilation();
             services.AddScoped<ITorneioService, TorneioService>();
         }
 
