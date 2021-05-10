@@ -64,6 +64,25 @@ body {
     box-shadow:none;
 }
 
+.randomSelect {
+    position: absolute;
+    top: 150px;
+    left: 40px;
+    border: 1px solid silver;
+    border-radius: 100%;
+    background-color: white;
+    color: black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1rem;
+    height: 30px;
+    width: 30px;
+}
+
+.randomSelect:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 .btn-start {
     position: fixed;
     top: 5px;
